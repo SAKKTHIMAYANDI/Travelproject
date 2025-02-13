@@ -1,0 +1,365 @@
+{% extends 'website/base.html' %}
+{% block content %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registration Form</title>
+
+    <!-- Include Bootstrap 5, Toastr CSS, and custom CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
+    
+
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f4f7fc;
+        }
+
+        .container {
+            max-width: 500px;
+            margin-top: 50px;
+        }
+
+        .title {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .title p {
+            font-size: 24px;
+            font-weight: bold;
+            color: #4b5c6b;
+        }
+
+        .btn-primary {
+            background-color: #0062cc;
+            border-color: #0062cc;
+        }
+
+        .btn-primary:hover {
+            background-color: #004085;
+            border-color: #003366;
+        }
+
+        .form-control {
+            border-radius: 0.5rem;
+        }
+
+        .input_box {
+            margin-bottom: 20px;
+        }
+
+        label {
+            font-weight: bold;
+            color: #333;
+        }
+
+        input[type="submit"] {
+            width: 100%;
+            padding: 10px;
+            border: none;
+            background-color: #28a745;
+            color: white;
+            font-size: 16px;
+            border-radius: 0.5rem;
+            cursor: pointer;
+        }
+
+        input[type="submit"]:hover {
+            background-color: #218838;
+        }
+
+        .input_box input,
+        .input_box textarea,
+        .input_box select {
+            width: 100%;
+            padding: 10px;
+            border-radius: 0.5rem;
+            border: 1px solid #ccc;
+            font-size: 14px;
+        }
+
+        .input_box select:focus,
+        .input_box input:focus,
+        .input_box textarea:focus {
+            border-color: #0062cc;
+            outline: none;
+        }
+
+        .links {
+            text-align: center;
+            margin-top: 15px;
+        }
+
+        .links a {
+            text-decoration: none;
+            color: #0062cc;
+            font-weight: bold;
+        }
+
+        .links a:hover {
+            text-decoration: underline;
+        }
+
+        .custom_select {
+            width: 100%;
+        }
+
+        .custom_select select {
+            width: 100%;
+            padding: 10px;
+            border-radius: 0.5rem;
+        }
+
+        .textarea {
+            height: 100px;
+            resize: none;
+        }
+        .error{
+            color:red;
+        }
+        nav {
+            background: rgba(0, 0, 0, 0.8);
+            padding: 15px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+        
+        nav ul {
+            list-style: none;
+            padding: 0;
+            display: flex;
+            gap: 15px;
+        }
+        
+        nav ul li {
+            display: inline;
+        }
+        
+        nav ul li a {
+            text-decoration: none;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 5px;
+            transition: 0.3s ease-in-out;
+        }
+        
+        nav ul li a:hover {
+            background: #fca311;
+        }
+        
+        .container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 80vh;
+        }
+        
+        .welcome-message {
+            font-size: 2rem;
+            margin-bottom: 20px;
+        }
+        
+        .cta-buttons a {
+            display: inline-block;
+            text-decoration: none;
+            padding: 12px 24px;
+            margin: 10px;
+            font-size: 1.2rem;
+            color: white;
+            background: #fca311;
+            border-radius: 8px;
+            transition: 0.3s ease-in-out;
+        }
+        
+        .cta-buttons a:hover {
+            background: #e68900;
+        }   
+    </style>
+
+</head>
+
+<body>
+
+    <div class="container">
+        <div class="title">
+            <p>Registration</p>
+        </div>
+
+        <form action="" id="registration-form" method="POST">
+            {% csrf_token %}
+            <div class="user_details">
+                <!-- Username Input -->
+                <div class="input_box">
+                    <label for="username">Username</label>
+                    <input type="text" name="username" id="username" placeholder="Enter your username" >
+                </div>
+
+                <!-- Email Input -->
+                <div class="input_box">
+                    <label for="email">Email</label>
+                    <input type="email" name="email" id="email" placeholder="Enter your email" >
+                </div>
+
+                <!-- Phone Number Input -->
+                <div class="input_box">
+                    <label for="phone">Phone Number</label>
+                    <input type="number" name="phone" id="phone" placeholder="Enter your number" >
+                </div>
+
+                <!-- Gender Select -->
+                <div class="input_box">
+                    <label for="gender">Gender</label>
+                    <div class="custom_select">
+                        <select name="gender" id="gender">
+                            <option value="">Select</option>
+                            <option value="male">Male</option>
+                            <option value="female">Female</option>
+                        </select>
+                    </div>
+                </div>
+
+                <!-- Address Textarea -->
+                <div class="input_box">
+                    <label for="address">Address</label>
+                    <textarea type="text" id="address" name="address" placeholder="Enter your address" class="textarea" ></textarea>
+                </div>
+
+                <!-- Password Input -->
+                <div class="input_box">
+                    <label for="pass">Password</label>
+                    <input type="password" name="password1" id="pass" placeholder="Enter your password" >
+                    
+                </div>
+
+                <!-- Confirm Password Input -->
+                <div class="input_box">
+                    <label for="confirmPass">Confirm Password</label>
+                    <input type="password" name="password2" id="confirmPass" placeholder="Confirm your password" >
+                </div>
+            </div>
+
+            <!-- Submit Button -->
+            <div class="reg_btn">
+                <input type="submit" value="Register">
+            </div>
+
+            <div class="links">
+                <a href="{% url 'login_page' %}">Already have an account? Sign In</a>
+            </div>
+        </form>
+    </div>
+
+</body>
+
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+<script src="https://cdn.jsdelivr.net/jquery.validation/1.19.5/jquery.validate.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.5/jquery.validate.min.js"></script>
+
+<script>
+
+    $(document).ready(function() {
+        
+        $("#registration-form").validate({
+            rules: {
+                username: {
+                    required: true,
+                    minlength: 3
+                },
+                email: {
+                    required: true,
+                    email: true
+                },
+                phone: {
+                    required: true,
+                    minlength: 10,
+                    maxlength: 15
+                },
+                gender: {
+                    required: true
+                },
+                address: {
+                    required: true
+                },
+                password1: {
+                    required: true,
+                    minlength: 6
+                },
+                password2: {
+                    required: true,
+                    equalTo: "#password1"
+                }
+            },
+            messages: {
+                username: {
+                    required: "Please enter your username",
+                    minlength: "Your name must be at least 3 characters long"
+                },
+                email: {
+                    required: "Please enter your email address",
+                    email: "Please enter a valid email address"
+                },
+                phone: {
+                    required: "Please enter your phone number",
+                    minlength: "Phone number must be at least 10 digits",
+                    maxlength: "Phone number cannot be more than 15 digits"
+                },
+                gender: {
+                    required: "Please select your gender"
+                },
+                address: {
+                    required: "Please enter your address"
+                },
+                password1: {
+                    required: "Please enter your password",
+                    minlength: "Password must be at least 6 characters long"
+                },
+                password2: {
+                    required: "Please confirm your password",
+                    equalTo: "Passwords do not match"
+                }
+            },
+            submitHandler: function(form) {
+                form.submit();
+            }
+        });
+    
+    });
+    
+    $(document).ready(function () {
+        $("#registration-form").submit(function (e) {
+            e.preventDefault(); 
+            var formData = $(this).serialize(); 
+            
+            $.ajax({
+                type: "POST",
+                url: "{% url 'Registion' %}", 
+                data: formData,
+                success: function (response) {
+                    if (response.status === "success") {
+                        toastr.success(response.message); 
+                    } else {
+                        toastr.error(response.message); 
+                    }
+                },
+                error: function (xhr, status, error) {
+                    toastr.error("An error occurred while processing the request."); 
+                }
+            });
+        });
+    });
+</script>
+
+</html>
+
+
+{% endblock %}

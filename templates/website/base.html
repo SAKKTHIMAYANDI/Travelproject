@@ -1,0 +1,114 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Travel Website</title>
+    <link rel="stylesheet" href="/static/websites/nav.css">
+    <style>
+        nav {
+            background: rgba(0, 0, 0, 0.8);
+            padding: 15px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+        
+        nav ul {
+            list-style: none;
+            padding: 0;
+            display: flex;
+            gap: 15px;
+        }
+        
+        nav ul li {
+            display: inline;
+        }
+        
+        nav ul li a {
+            text-decoration: none;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 5px;
+            transition: 0.3s ease-in-out;
+        }
+        
+        nav ul li a:hover {
+            background: #fca311;
+        }
+        
+        .container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 80vh;
+        }
+        
+        .welcome-message {
+            font-size: 2rem;
+            margin-bottom: 20px;
+        }
+        
+        .cta-buttons a {
+            display: inline-block;
+            text-decoration: none;
+            padding: 12px 24px;
+            margin: 10px;
+            font-size: 1.2rem;
+            color: white;
+            background: #fca311;
+            border-radius: 8px;
+            transition: 0.3s ease-in-out;
+        }
+        
+        .cta-buttons a:hover {
+            background: #e68900;
+        }
+    </style>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+<body>
+    <header>
+        <nav>
+            <div class="logo">
+                <h2>Travel Explorer</h2>
+            </div>
+            <ul>
+                <li><a href="/">Home</a></li>
+                {% if user.is_authenticated %}
+                    <li><a href="#">Welcome, {{ user.username }}</a></li>
+                    <li><a href="{% url 'logout' %}">Logout</a></li>
+                {% else %}
+                    <li><a href="{% url 'login_page' %}">Login</a></li>
+                    <li><a href="{% url 'Registion' %}">Register</a></li>
+                {% endif %}
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        {% block content %}
+
+            <div class="container">
+                <h1 class="welcome-message">Welcome to Travel Explorer! Book Your Next Adventure Now.</h1>
+                <div class="cta-buttons">
+                    <a href="{% url 'travel_form' %}">Register Now</a>
+                    {% if not user.is_authenticated %}
+                    <a href="{% url 'login_page' %}">Login</a>
+                    {% endif %}
+                </div>
+            </div>
+        {% endblock %}
+
+    </main>
+
+    
+
+</body>
+</html>

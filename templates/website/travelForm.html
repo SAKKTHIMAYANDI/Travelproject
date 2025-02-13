@@ -1,0 +1,286 @@
+{% extends 'website/base.html' %}
+{% block content %}
+<html>
+    <head> 
+        <title> Travel Details Form </title>
+        <link rel="stylesheet" href="/static/websites/style.css">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+        <link href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css" rel="stylesheet">
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/jquery-validation@1.19.5/dist/jquery.validate.min.js"></script>
+        <style>
+            nav {
+                background: rgba(0, 0, 0, 0.8);
+                padding: 15px;
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                flex-wrap: wrap;
+            }
+            
+            nav ul {
+                list-style: none;
+                padding: 0;
+                display: flex;
+                gap: 15px;
+            }
+            
+            nav ul li {
+                display: inline;
+            }
+            
+            nav ul li a {
+                text-decoration: none;
+                color: white;
+                padding: 10px 20px;
+                border-radius: 5px;
+                transition: 0.3s ease-in-out;
+            }
+            
+            nav ul li a:hover {
+                background: #fca311;
+            }
+            
+            .container {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
+                height: 80vh;
+            }
+            
+            .welcome-message {
+                font-size: 2rem;
+                margin-bottom: 20px;
+            }
+            
+            .cta-buttons a {
+                display: inline-block;
+                text-decoration: none;
+                padding: 12px 24px;
+                margin: 10px;
+                font-size: 1.2rem;
+                color: white;
+                background: #fca311;
+                border-radius: 8px;
+                transition: 0.3s ease-in-out;
+            }
+            
+            .cta-buttons a:hover {
+                background: #e68900;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="container">
+            <div class="title">
+                <p>Travel Details Form </p>
+            </div>
+
+            <form action="" id="travel-form" method="POST">
+                {% csrf_token %} 
+                <div class="user_details">
+                    <div class="input_box">
+                        <label for="full_name">Full Name</label>
+                        <input type="text" name="full_name" id="full_name" placeholder="Enter your username" required>
+                    </div>
+
+                    <div class="input_box">
+                        <label for="email">Email</label>
+                        <input type="email" name="email" id="email" placeholder="Enter your email" required>
+                    </div>
+
+                    <div class="input_box">
+                        <label for="phone">Phone Number</label>
+                        <input type="number" name="phone" id="phone" placeholder="Enter your number" required>
+                    </div>
+
+                    <div class="input_box">
+                        <label for="gender">Gender</label>
+                        <div class="custom_select">
+                          <select name="gender">
+                            <option value="">Select</option>
+                            <option value="male">Male</option>
+                            <option value="female">Female</option>
+                          </select>
+                        </div>
+                    </div>
+
+                    <div class="input_box">
+                        <label for="dob">DOB</label>
+                        <input type="date" name="dob"  id="dob" required>
+                    </div>
+
+                    <div class="input_box">
+                        <label for="age">Age</label>
+                        <input type="number" name="age" id="age" placeholder="Enter the Age"  readonly>
+                    </div>
+
+                    <div class="input_box">
+                        <label for="form_location">Travel Start Location</label>
+                        <input type="text" name="form_location" id="form_location" placeholder="Enter the Start Location" required>
+                    </div>
+
+                    <div class="input_box">
+                        <label for="destination">Travel End Location</label>
+                        <input type="text" name="destination" id="destination" placeholder="Enter the End Location" required>
+                    </div>
+
+                    <div class="input_box">
+                        <label for="travel_date">Travel Date</label>
+                        <input type="date" name="travel_date" id="travel_date" required>
+                    </div>
+
+                    <div class="input_box">
+                        <label for="travel_mode">Travel Mode</label>
+                        <div class="custom_select">
+                          <select name="travel_mode">
+                            <option value="">Select</option>
+                            <option value="by train">By Train</option>
+                            <option value="by flight">By Flight</option>
+                            <option value="by bus">By Bus</option>
+                          </select>
+                        </div>
+                    </div>
+
+                    <div class="">
+                        <label for="booking_mode">Travel Booking Mode</label>
+                        <br>
+                        <input type="radio" id="booking_mode" name="booking_mode" value="self">
+                        <label for="booking_mode1">Self</label><br>
+                        <input type="radio" id="booking_mode2" name="booking_mode" value="travel desk">
+                        <label for="booking_mode2">Travel Desk</label><br>
+                        <label id="booking_mode-error" style="display:none" class="error" for="booking_mode">Please select a booking mode</label>
+                    </div>
+                    <div class="input_box">
+                        <label for="reason">Reason</label>
+                        <textarea type="text" id="reason" name="reason" placeholder="Enter the Reason" style="width: 140%;height: 125px;resize: none;" ></textarea>
+                    </div>
+                    <br/>
+
+                </div>
+
+                <div class="reg_btn">
+                    {% comment %} <input type="submit" value="Register"> {% endcomment %}
+                    <button type="submit" id="submit-btn" value="Register" class="btn btn-primary">Submit</button>
+
+                </div>
+            </form>
+        </div>
+    </body>
+    <script>
+
+        $(document).ready(function() {
+            // Add jQuery validation to the form
+            $("#travel-form").validate({
+                rules: {
+                    full_name: {
+                        required: true,
+                        minlength: 3
+                    },
+                    email: {
+                        required: true,
+                        email: true
+                    },
+                    phone: {
+                        required: true,
+                        minlength: 10,
+                        maxlength: 15
+                    },
+                    gender: {
+                        required: true
+                    },
+                    dob: {
+                        required: true
+                    },
+                   // age: {
+                   //     required: false,
+                  //      min: 18,
+                  //      max: 100
+                  //  },
+                    form_location: {
+                        required: true
+                    },
+                    destination: {
+                        required: true
+                    },
+                    travel_date: {
+                        required: true
+                    },
+                    travel_mode: {
+                        required: true
+                    },
+                    booking_mode: {
+                        required: true
+                    }
+                },
+                messages: {
+                    full_name: {
+                        required: "Please enter your full name",
+                        minlength: "Your name must be at least 3 characters long"
+                    },
+                    email: {
+                        required: "Please enter your email address",
+                        email: "Please enter a valid email address"
+                    },
+                    phone: {
+                        required: "Please enter your phone number",
+                        minlength: "Phone number must be at least 10 digits",
+                        maxlength: "Phone number cannot be more than 15 digits"
+                    },
+                    gender: {
+                        required: "Please select your gender"
+                    },
+                    dob: {
+                        required: "Please select your date of birth"
+                    },
+                  //  age: {
+                  //      required: "Please enter your age",
+                  //      min: "You must be at least 18 years old",
+                  //      max: "Age cannot be more than 100"
+                 //   },
+                    form_location: {
+                        required: "Please enter the start location"
+                    },
+                    destination: {
+                        required: "Please enter the destination"
+                    },
+                    travel_date: {
+                        required: "Please select a travel date"
+                    },
+                    travel_mode: {
+                        required: "Please select a travel mode"
+                    },
+                    booking_mode: {
+                        required: "Please select a booking mode"
+                    }
+                },
+                submitHandler: function(form) {
+                    // You can add custom code here for form submission (e.g., an AJAX call)
+                    form.submit();
+                }
+            });
+
+            // Automatically calculate age based on DOB
+            $("#dob").change(function() {
+                var dob = new Date($(this).val());
+                var today = new Date();
+                var age = today.getFullYear() - dob.getFullYear();
+                var m = today.getMonth() - dob.getMonth();
+
+                // Adjust age if the birthday hasn't occurred yet this year
+                if (m < 0 || (m === 0 && today.getDate() < dob.getDate())) {
+                    age--;
+                }
+
+                // Set the age in the age input field
+                $("#age").val(age);
+            });
+
+            
+        });
+       
+    </script>
+</html>
+{% endblock %}

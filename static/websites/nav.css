@@ -1,0 +1,220 @@
+/* styles.css */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f4f4f4;
+}
+
+header {
+    background-color: #333;
+    color: white;
+    padding: 10px 0;
+    text-align: right;
+}
+
+nav ul {
+    list-style: none;
+    padding: 0;
+}
+
+nav ul li {
+    display: inline;
+    margin: 0 15px;
+}
+
+nav ul li a {
+    color: white;
+    text-decoration: none;
+    font-size: 16px;
+}
+
+.product-list {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    padding: 20px;
+}
+
+.product-card {
+    background-color: white;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    width: 30%;
+    padding: 15px;
+    margin: 10px;
+    text-align: center;
+}
+
+.product-card img {
+    width: 100%;
+    height: auto;
+    border-radius: 8px;
+}
+
+.product-card a {
+    color: #333;
+    font-size: 18px;
+    text-decoration: none;
+    display: block;
+    margin-top: 10px;
+}
+
+.add-to-cart {
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: #28a745;
+    color: white;
+    text-decoration: none;
+    border-radius: 5px;
+    margin-top: 15px;
+}
+
+.add-to-cart:hover {
+    background-color: #218838;
+}
+
+.cart-items {
+    padding: 20px;
+}
+
+.cart-item {
+    background-color: white;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    margin: 15px 0;
+    padding: 15px;
+}
+
+.cart-total {
+    text-align: center;
+    margin-top: 20px;
+}
+
+.checkout-button {
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: white;
+    text-decoration: none;
+    border-radius: 5px;
+}
+
+.checkout-button:hover {
+    background-color: #0056b3;
+}
+
+footer {
+    background-color: #333;
+    color: white;
+    padding: 10px 0;
+    text-align: center;
+}
+
+button:focus,
+input:focus{
+  outline: none;
+  box-shadow: none;
+}
+a,
+a:hover{
+  text-decoration: none;
+}
+
+/*--------------------------*/
+/* .qty-container{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+} */
+.qty-container .input-qty{
+  text-align: center;
+  padding: 6px 10px;
+  border: 1px solid #d4d4d4;
+  max-width: 80px;
+}
+.qty-container .qty-btn-minus,
+.qty-container .qty-btn-plus{
+  border: 1px solid #d4d4d4;
+  padding: 10px 13px;
+  font-size: 10px;
+  height: 38px;
+  width: 38px;
+  transition: 0.3s;
+}
+.qty-container .qty-btn-plus{
+  margin-left: -1px;
+}
+.qty-container .qty-btn-minus{
+  margin-right: -1px;
+}
+
+
+/*---------------------------*/
+.btn-cornered,
+.input-cornered{
+  border-radius: 4px;
+}
+.btn-rounded{
+  border-radius: 50%;
+}
+.input-rounded{
+  border-radius: 50px;
+}
+
+.pro_image{
+  float:right;
+  height: fit-content;
+}
+
+/* Styling the welcome message */
+.welcome-message {
+    font-family: 'Poppins', sans-serif;
+    font-size: 36px;
+    font-weight: 600;
+    color: #333;
+    text-align: center;
+    background: linear-gradient(to right, #F37A65, #D64141);
+    -webkit-background-clip: text;
+    color: transparent;
+    letter-spacing: 2px;
+    text-shadow: 1px 1px 5px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+}
+
+/* Hover effect on welcome message */
+.welcome-message:hover {
+    color: #fff;
+    background: linear-gradient(to left, #F37A65, #D64141);
+    text-shadow: 2px 2px 10px rgba(0, 0, 0, 0.2);
+}
+
+/* Styling the registration message */
+.registration-message {
+    text-align: center;
+    font-family: 'Poppins', sans-serif;
+    font-size: 24px;
+    font-weight: 500;
+    color: #333;
+    margin-top: 20px;
+}
+
+/* Styling the Registration link */
+.registration-link {
+    color: #D64141;  /* Set the link color to match the gradient theme */
+    font-weight: 600;  /* Make the link bold */
+    text-decoration: none;  /* Remove underline */
+    transition: all 0.3s ease-in-out;  /* Smooth transition for hover effects */
+}
+
+/* Hover effect on registration link */
+.registration-link:hover {
+    color: #F37A65;  /* Change color on hover */
+    text-decoration: underline;  /* Add underline on hover */
+    cursor: pointer;  /* Change cursor to a hand on hover */
+}
+
+/* Additional hover effects and cursor change */
+.registration-link:active {
+    color: #D64141;  /* Slightly change the color on active click */
+}
+    

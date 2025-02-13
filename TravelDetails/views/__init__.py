@@ -1,0 +1,1 @@
+from TravelDetails.views.Registiondatas import Registiondatas
